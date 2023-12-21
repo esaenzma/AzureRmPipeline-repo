@@ -50,7 +50,7 @@ steps:
     csmFileLink: 'https://raw.githubusercontent.com/nahuic72/AzureRmPipeline-repo/main/CreateWebApp/azuredeploy.json'
     overrideParameters: '-projectName nra'
     deploymentMode: 'Incremental'
-    deploymentName: 'DeployPipelineTemplate'
+    deploymentName: 'DeployPipelineTemplate' 
 
 - stage: Deploy
   jobs:
