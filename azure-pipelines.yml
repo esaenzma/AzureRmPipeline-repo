@@ -21,6 +21,20 @@ stages:
     steps:
     - task: NuGetToolInstaller@1
 
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'armEjemplo'
+        subscriptionId: 'e3999679-7c37-4f4a-85ab-7fd916a65a47'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'josecitogrupoarm'
+        location: 'West Europe'
+        templateLocation: 'URL of the file'
+        csmFileLink: 'https://raw.githubusercontent.com/nahuic72/AzureRmPipeline-repo/main/CreateWebApp/azuredeploy.json'
+        overrideParameters: '-projectName nra'
+        deploymentMode: 'Incremental'
+        deploymentName: 'DeployPipelineTemplate' 
+
     - task: NuGetCommand@2
       inputs:
         restoreSolution: '$(solution)'
@@ -36,21 +50,6 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
         publishLocation: 'Container'
-
-steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'armEjemplo'
-    subscriptionId: 'e3999679-7c37-4f4a-85ab-7fd916a65a47'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'josecitogrupoarm'
-    location: 'West Europe'
-    templateLocation: 'URL of the file'
-    csmFileLink: 'https://raw.githubusercontent.com/nahuic72/AzureRmPipeline-repo/main/CreateWebApp/azuredeploy.json'
-    overrideParameters: '-projectName nra'
-    deploymentMode: 'Incremental'
-    deploymentName: 'DeployPipelineTemplate' 
 
 - stage: Deploy
   jobs:
